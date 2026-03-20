@@ -1,0 +1,506 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Syed Zeeshan - Portfolio</title>
+  <link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet"/>
+  <style>
+    /* Reset */
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg:      #0a0a0f;
+      --surface: #12121a;
+      --border:  rgba(255,255,255,0.07);
+      --accent:  #7c5cfc;
+      --accent2: #fc5c7d;
+      --text:    #eeeef5;
+      --muted:   #888899;
+    }
+
+    html { scroll-behavior: smooth; }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: 'DM Sans', sans-serif;
+      font-weight: 300;
+    }
+
+    /* NAV */
+    nav {
+      position: fixed;
+      top: 0; left: 0; right: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 1.2rem 3rem;
+      background: rgba(10,10,15,0.85);
+      backdrop-filter: blur(16px);
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-logo {
+      font-family: 'Syne', sans-serif;
+      font-weight: 800;
+      font-size: 1.2rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .nav-links {
+      display: flex;
+      gap: 2rem;
+      list-style: none;
+    }
+
+    .nav-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.9rem;
+      transition: color 0.3s;
+    }
+
+    .nav-links a:hover { color: var(--text); }
+
+    /* HERO */
+    #hero {
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      text-align: center;
+      padding: 0 2rem;
+    }
+
+    .hero-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-bottom: 1.8rem;
+      background: var(--surface);
+    }
+
+    .dot {
+      width: 6px; height: 6px;
+      border-radius: 50%;
+      background: #4caf50;
+      animation: blink 2s infinite;
+    }
+
+    @keyframes blink { 0%,100%{opacity:1;} 50%{opacity:0.3;} }
+
+    .hero-name {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(2.8rem, 7vw, 5rem);
+      font-weight: 800;
+      letter-spacing: -2px;
+      line-height: 1.05;
+      margin-bottom: 1.2rem;
+    }
+
+    .gradient {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero-sub {
+      font-size: 1.05rem;
+      color: var(--muted);
+      line-height: 1.8;
+      max-width: 480px;
+    }
+
+    /* SECTIONS */
+    section { padding: 5rem 2rem; }
+
+    .section-inner {
+      max-width: 900px;
+      margin: 0 auto;
+    }
+
+    .section-label {
+      font-size: 0.72rem;
+      font-weight: 500;
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      color: var(--accent);
+      margin-bottom: 0.8rem;
+    }
+
+    .section-title {
+      font-family: 'Syne', sans-serif;
+      font-size: clamp(1.8rem, 3.5vw, 2.5rem);
+      font-weight: 800;
+      letter-spacing: -1px;
+      margin-bottom: 0.8rem;
+    }
+
+    .divider {
+      width: 50px; height: 3px;
+      background: linear-gradient(to right, var(--accent), var(--accent2));
+      border-radius: 3px;
+      margin-bottom: 2.5rem;
+    }
+
+    /* ABOUT */
+    #about { background: var(--surface); }
+
+    .about-text p {
+      color: var(--muted);
+      line-height: 1.9;
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .about-text p strong { color: var(--text); font-weight: 500; }
+
+    /* SKILLS */
+    #skills { background: var(--bg); }
+
+    .skills-category {
+      font-size: 0.75rem;
+      font-weight: 500;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: var(--muted);
+      margin-bottom: 1rem;
+      margin-top: 2rem;
+    }
+
+    .skills-category:first-child { margin-top: 0; }
+
+    .skills-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.8rem;
+    }
+
+    .skill-pill {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      padding: 0.6rem 1.2rem;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 100px;
+      font-size: 0.88rem;
+      color: var(--muted);
+      transition: all 0.25s;
+      cursor: default;
+    }
+
+    .skill-pill:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    /* PROJECTS */
+    #projects { background: var(--surface); }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(270px, 1fr));
+      gap: 1.2rem;
+    }
+
+    .project-card {
+      background: var(--bg);
+      border: 1px solid var(--border);
+      border-radius: 14px;
+      padding: 1.8rem;
+      transition: all 0.3s;
+    }
+
+    .project-card:hover {
+      border-color: rgba(124,92,252,0.4);
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+    }
+
+    .project-icon { font-size: 2.2rem; margin-bottom: 1rem; }
+
+    .project-title {
+      font-family: 'Syne', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      margin-bottom: 0.5rem;
+    }
+
+    .project-desc {
+      font-size: 0.88rem;
+      color: var(--muted);
+      line-height: 1.7;
+      margin-bottom: 1.2rem;
+    }
+
+    .project-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 0.4rem;
+      margin-bottom: 1.2rem;
+    }
+
+    .tag {
+      font-size: 0.68rem;
+      padding: 0.2rem 0.65rem;
+      background: rgba(124,92,252,0.1);
+      color: var(--accent);
+      border: 1px solid rgba(124,92,252,0.2);
+      border-radius: 100px;
+    }
+
+    .project-links { display: flex; gap: 0.7rem; }
+
+    .project-link {
+      font-size: 0.8rem;
+      font-weight: 500;
+      color: var(--muted);
+      text-decoration: none;
+      padding: 0.4rem 1rem;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: all 0.25s;
+    }
+
+    .project-link:hover { border-color: var(--accent); color: var(--accent); }
+
+    .project-link.primary {
+      background: var(--accent);
+      color: #fff;
+      border-color: var(--accent);
+    }
+
+    .project-link.primary:hover { background: #5e3dcc; }
+
+    /* CONTACT */
+    #contact { background: var(--bg); text-align: center; }
+
+    .contact-card {
+      max-width: 500px;
+      margin: 0 auto;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 18px;
+      padding: 3rem 2.5rem;
+    }
+
+    .contact-card p {
+      color: var(--muted);
+      font-size: 0.95rem;
+      line-height: 1.8;
+      margin-bottom: 1.5rem;
+    }
+
+    .contact-email {
+      display: inline-block;
+      font-family: 'Syne', sans-serif;
+      font-size: 1rem;
+      font-weight: 700;
+      color: var(--accent);
+      text-decoration: none;
+      margin-bottom: 2rem;
+      transition: opacity 0.3s;
+    }
+
+    .contact-email:hover { opacity: 0.7; }
+
+    .contact-socials {
+      display: flex;
+      gap: 0.8rem;
+      justify-content: center;
+    }
+
+    .social-btn {
+      padding: 0.6rem 1.4rem;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.85rem;
+      font-weight: 500;
+      transition: all 0.25s;
+    }
+
+    .social-btn:hover {
+      border-color: var(--accent);
+      color: var(--text);
+      transform: translateY(-2px);
+    }
+
+    /* FOOTER */
+    footer {
+      text-align: center;
+      padding: 1.8rem;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.8rem;
+    }
+
+    /* RESPONSIVE */
+    @media (max-width: 600px) {
+      nav { padding: 1rem 1.5rem; }
+      .nav-links { gap: 1.2rem; }
+      section { padding: 4rem 1.2rem; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- NAV -->
+<nav>
+  <div class="nav-logo">SZ.</div>
+  <ul class="nav-links">
+    <li><a href="#about">About</a></li>
+    <li><a href="#skills">Skills</a></li>
+    <li><a href="#projects">Projects</a></li>
+    <li><a href="#contact">Contact</a></li>
+  </ul>
+</nav>
+
+<!-- HERO -->
+<section id="hero">
+  <h1 class="hero-name">
+    Hi, I'm<br>
+    <span class="gradient">Syed Zeeshan</span>
+  </h1>
+  <p class="hero-sub">
+    A Computer Science student passionate about building clean web experiences and solving problems through code.
+  </p>
+</section>
+
+<!-- ABOUT -->
+<section id="about">
+  <div class="section-inner">
+    <div class="section-label">About Me</div>
+    <h2 class="section-title">Who I Am</h2>
+    <div class="divider"></div>
+    <div class="about-text">
+      <p>I'm <strong>Syed Zeeshan</strong>, a Computer Science student with a strong interest in web development and programming. I enjoy building projects that are both functional and visually clean.</p>
+      <p>I'm always learning — whether it's exploring new frontend techniques, or sharpening my logic through coding in <strong>Java</strong> and <strong>C</strong>.</p>
+      <p>I'm currently looking for opportunities to grow, contribute, and build things that make a difference.</p>
+    </div>
+  </div>
+</section>
+
+<!-- SKILLS -->
+<section id="skills">
+  <div class="section-inner">
+    <div class="section-label">What I Know</div>
+    <h2 class="section-title">Skills</h2>
+    <div class="divider"></div>
+
+    <div class="skills-category">Frontend</div>
+    <div class="skills-grid">
+      <div class="skill-pill">🌐 HTML5</div>
+      <div class="skill-pill">🎨 CSS3</div>
+      <div class="skill-pill">⚡ JavaScript</div>
+      <div class="skill-pill">📱 Responsive Design</div>
+      <div class="skill-pill">🎭 CSS Animations</div>
+    </div>
+
+    <div class="skills-category">Programming Languages</div>
+    <div class="skills-grid">
+      <div class="skill-pill">☕ Java</div>
+      <div class="skill-pill">⚙️ C</div>
+    </div>
+
+    <div class="skills-category">Tools</div>
+    <div class="skills-grid">
+      <div class="skill-pill">🔧 Git &amp; GitHub</div>
+      <div class="skill-pill">💻 VS Code</div>
+    </div>
+  </div>
+</section>
+
+<!-- PROJECTS -->
+<section id="projects">
+  <div class="section-inner">
+    <div class="section-label">My Work</div>
+    <h2 class="section-title">Projects</h2>
+    <div class="divider"></div>
+    <div class="projects-grid">
+
+      <div class="project-card">
+        <div class="project-icon">🌐</div>
+        <div class="project-title">Personal Portfolio Website</div>
+        <p class="project-desc">A responsive personal portfolio built from scratch to showcase my skills, background, and projects. Designed with a clean dark theme, smooth scroll animations, and minimal code.</p>
+        <div class="project-tags">
+          <span class="tag">HTML</span>
+          <span class="tag">CSS</span>
+          <span class="tag">JavaScript</span>
+        </div>
+        <div class="project-links">
+          <a href="#" class="project-link primary">Live</a>
+          <a href="https://github.com/syedzeeshanalive-cpu" target="_blank" class="project-link">GitHub</a>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
+<!-- CONTACT -->
+<section id="contact">
+  <div class="section-inner">
+    <div class="section-label">Get In Touch</div>
+    <h2 class="section-title">Contact</h2>
+    <div class="divider" style="margin: 0 auto 2.5rem;"></div>
+    <div class="contact-card">
+      <p>I'm open to internships, collaborations, or just a friendly chat about tech. Feel free to reach out!</p>
+      <!-- Email is built by JavaScript below to avoid spam protection issues -->
+      <a id="email-link" class="contact-email"></a>
+      <div class="contact-socials">
+        <a href="https://github.com/syedzeeshanalive-cpu" target="_blank" class="social-btn">GitHub</a>
+        <a href="https://www.linkedin.com/in/syeddzeeshann77" target="_blank" class="social-btn">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  Designed &amp; Built by Syed Zeeshan &middot; 2025
+</footer>
+
+<script>
+  // Build email via JS so it doesn't get blocked by spam protection
+  var u = 'syedzeeshanalive';
+  var d = 'gmail.com';
+  var el = document.getElementById('email-link');
+  el.href = 'mailto:' + u + '@' + d;
+  el.textContent = u + '@' + d;
+
+  // Fade-in animation when cards scroll into view
+  var items = document.querySelectorAll('.project-card, .skill-pill');
+
+  var observer = new IntersectionObserver(function(entries) {
+    entries.forEach(function(entry) {
+      if (entry.isIntersecting) {
+        entry.target.style.opacity = '1';
+        entry.target.style.transform = 'translateY(0)';
+      }
+    });
+  }, { threshold: 0.1 });
+
+  items.forEach(function(item) {
+    item.style.opacity = '0';
+    item.style.transform = 'translateY(20px)';
+    item.style.transition = 'opacity 0.5s ease, transform 0.5s ease';
+    observer.observe(item);
+  });
+</script>
+
+</body>
+</html>
